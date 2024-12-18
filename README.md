@@ -19,10 +19,10 @@ Thanks to a multi-agent architecture, enhanced with various tools, you can get a
   - Suggested itineraries for your trip.  
 
 ## Note  
-The project code is currently **hidden** because we are working on further ideas that we are not ready to make public. However, we are sharing this repository to demonstrate its existence and promote the project in case someone is interested in contributing.
+There are still some ongoing developments and new ideas in progress.
 
 ## Want a Demo?  
 If you don't believe it, reach out to us! We'd be happy to provide **live demonstrations** to showcase FlyNow in action.
 
 ## Curious?  
-For the most curious ones, here’s the link to a **demonstration video**: [FlyNow Demo (Hackaton 2024 - Catania)](https://www.youtube.com/watch?v=9BYvgBMRvL0)  
+For the most curious ones, here’s the link to a **demonstration video**: [FlyNow Demo (Hackathon 2024 - Catania)](https://www.youtube.com/watch?v=9BYvgBMRvL0)

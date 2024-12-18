@@ -67,3 +67,8 @@ class OpenWeatherMapAPIWrapper(BaseModel):
             return self._format_weather_info(location, forecast_data)
         else:
             raise ValueError(f"Failed to retrieve forecast data for {location}.")
+
+
+# Usage Example
+# wrapper = OpenWeatherMapAPIWrapper(openweathermap_api_key="your_api_key_here")
+# print(wrapper.run("Catania,IT"))
