@@ -170,7 +170,7 @@ def askLLM(user_input):
     # Main function to process user queries with date context
     oggi = date.today()
 
-    fixInput = f"{user_input}.Considerando che oggi è {oggi} calcola il periodo esatto."
+    fixInput = f"{user_input}.Considering that today is {oggi} calculates the exact period."
     res = ""
     try:
         if user_input.lower() in ["quit", "exit", "q"]:
@@ -191,24 +191,24 @@ def askLLMPriority(input):
     cond = 0
 
     oggi = date.today()
-    # ask = f"{testo}.Considerando che oggi è {oggi} calcola il periodo esatto.\nInserisci anche i codici dei voli trovati e i link ai siti per acquistare i biglietti. Dimmi anche come sarà il meteo in quel periodo. Fammi un breve itinerario e cerca gli eventi e notizie più importanti sulla destinazione nel periodo del viaggio\nformatta il risultato per il markdown di messaggi telegram mettendo frasi e parole tra * o tra _ e per dare più enfasi aggiungi qualche emoji"
+    # ask = f"{testo}.Considering that today is {oggi} calculates the exact period.\n Also enter the codes of the flights found and links to the sites to buy tickets. Also tell me what the weather will be like at that time. Give me a brief itinerary and look for the most important events and news about the destination at the time of the trip\format the result for telegram message markdown by putting phrases and words between * or between _ and for added emphasis add some emoji"
 
-    t = f"""Considera che oggi è {oggi} nella seguente frase \"{input}\" si sta cercando di organizzare un viaggio/volo.
-        \nRispondimi con un solo numero in base a questa tabella:
-        \n0 - è un viaggio/volo che si vuole fare entro 5 giorni da oggi;
-        \n1 - non è un viaggio/volo che si vuole fare entro 5 giorni da oggi;
-        \n2 - non sta parlando di viaggi"""
+    t = f"""Consider that today is  {oggi} in the following sentence \"{input}\" you are trying to arrange a trip/flight.
+        \nAnswer me with a single number based on this table:
+        \n0 - Is a trip/flight that you want to do within 5 days from today;
+        \n1 - It is NOT a trip/flight that you want to do within 5 days from today;
+        \n2 - is not talking about travel"""
     ResType = askLLM(t)
     res = ""
     if "0" in ResType:
-        newAsk = f"{input}.Considerando che oggi è {oggi} calcola il periodo esatto.\nInserisci anche i codici dei voli trovati e i link ai corrispondenti  della compagnia corrispondente per acquistare i biglietti. Dimmi anche come sarà il meteo in quel periodo"
+        newAsk = f"{input}.Considering that today is {oggi} calculate the exact period.\Insert also the codes of the flights found and links to the corresponding airline correspondents to buy tickets. Also tell me what the weather will be like at that time."
         res = askLLM(newAsk)
     elif "1" in ResType:
-        newAsk = f"{input}.Considerando che oggi è {oggi} calcola il periodo esatto.\nInserisci anche i codici dei voli trovati e i link ai corrispondenti  della compagnia corrispondente per acquistare i biglietti. Dimmi anche come sarà il meteo in quel periodo. Fammi un breve itinerario e cerca gli eventi e notizie più importanti sulla destinazione nel periodo del viaggio\nformatta il risultato per il markdown di messaggi telegram mettendo frasi e parole tra * o tra _ e per dare più enfasi aggiungi qualche emoji"
+        newAsk = f"{input}.Considering that today is {oggi} calculate the exact period.\Insert also the codes of the flights found and links to the corresponding airline correspondents to buy tickets. Also tell me what the weather will be like during that period. Make me a short itinerary and look for the most important events and news about the destination in the travel period.\nform the result for telegram message markdown by putting phrases and words between * or between _ and to give more emphasis add some emoji"
         res = askLLM(newAsk)
     else:
-        res = f"""Scusa non ho capito.
-        \nSono un AI agente di viaggi. Cerca un volo per un determinato periodo"""
+        res = f"""Sorry I didn't understand.
+        \nI am a travel agent AI. Looking for a flight for a specific period of time."""
     return res
 
 

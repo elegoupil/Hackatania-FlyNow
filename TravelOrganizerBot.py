@@ -31,9 +31,9 @@ scheduler = schedule
 def send_description(message):
     idT = message.chat.id
 
-    res = f"""_Ciao, mi chiamo_ ✈️🧳 *FlyNow*\n_Sono un AI agente di viaggi. Ti aiuterò ad organizzare i tuoi prossimi viaggi._
-    \n\n_Dimmi dove vorresti andare e da dove parti e il periodo e farò le migliori ricerche per te\n
-    \n(Es. Cerca voli andata e ritorno da Roma per Madrid dal 20 al 25 Novembre)_"""
+    res = f"""_Hello, I am _ ✈️*Siempre A la Orden*🧳 \n_, your new IOM AI Travel Assistant. I am here 24/24h to help organising your mission travel._
+    \n\n_Tell me where you would like to go, where you are departing from, and the period, and I will do the best searches for you.\n
+    \n(Example: Search for round-trip flights from Geneva to Valencia from February 03 to 07)_"""
     bot.delete_message(idT, message.id)
     sendMessage(idT, res)
 
@@ -56,11 +56,11 @@ def sendMessage(idT, message):
 def handle_message(message):
     idT = message.chat.id
     t = message.text
-    print(f"Mess ricevuto:\n\"{t}\"\n\n")
-    idM = sendMessage(idT, "Sto esaminando le tue richieste...")
+    print(f"Received:\n\"{t}\"\n\n")
+    idM = sendMessage(idT, "I am reviewing your requests...")
     print("\nTyping\n")
     bot.send_chat_action(idT, "typing")
-    ask = f"{t}.\nTogli i doppi asterischi nel testo che mi hai dato come risultato e formattalo attraverso il markdown di messaggi telegram mettendo frasi o parole tra * o tra _ e per dare più enfasi aggiungi qualche emoji"
+    ask = f"{t}.\nRemove the double asterisks in the text you gave me as a result and format it by putting phrases or words between * or between _ and to give more emphasis add some emoji"
     res = f"{askLLM(ask)}"
     sendMessage(idT, res)
     bot.delete_message(idT,idM.id)
@@ -68,7 +68,7 @@ def handle_message(message):
 
 
 
-# Riconoscitore vocale globale
+# Global speech recognizer
 recognizer = sr.Recognizer()
 
 # Function to manage voice messages
@@ -79,7 +79,7 @@ def handle_voice(message):
     ogg_path = "voice_message.ogg"
     wav_path = "voice_message.wav"
 
-    # Scarica il file vocale dal server di Telegram
+    # Download the voice file from Telegram server
     downloaded_file = bot.download_file(file_info.file_path)
     with open(ogg_path, 'wb') as f:
         f.write(downloaded_file)
@@ -90,15 +90,15 @@ def handle_voice(message):
 
     # Trascrivi l'audio
     print("Audio ricevuto...")
-    idM = sendMessage(idT, "Sto esaminando le tue richieste...")
+    idM = sendMessage(idT, "I am reviewing your requests...")
     print("\nTyping\n")
     bot.send_chat_action(idT, "typing")
     testo = trascrivi_audios(wav_path)
 
-    ask = f"{testo}.\nTogli i doppi asterischi nel testo che mi hai dato come risultato e formattalo attraverso il markdown di messaggi telegram mettendo frasi o parole tra * o tra _ e per dare più enfasi aggiungi qualche emoji"
+    ask = f"{testo}.\nRemove the double asterisks in the text you gave me as a result and format it by putting phrases or words between * or between _ and to give more emphasis add some emoji"
     #t = response(t, idT)
     res = f"{askLLM(ask)}"
-    #t = f"Formatta il seguente testo per il markdown di telegram:\n\n{askLLM(t)}"
+    #t = f"Format the following text for telegram markdown.:\n\n{askLLM(t)}"
     sendMessage(idT, res)
     bot.delete_message(idT,idM.id)
 
@@ -114,13 +114,13 @@ def trascrivi_audios(file_path):
     try:
         with sr.AudioFile(file_path) as source:
             audio = recognizer.record(source)
-            testo = recognizer.recognize_google(audio, language='it-IT')
-            print("Testo rilevato...")
+            testo = recognizer.recognize_google(audio, language='en-EN')
+            print("Text detected...")
             return testo
     except sr.UnknownValueError:
-        return "Non ho capito l'audio."
+        return "I did not understand the audio."
     except sr.RequestError as e:
-        return f"Errore di riconoscimento vocale: {e}"
+        return f"Voice recognition error: {e}"
 
 # Function to start polling the bot
 def polling_thread():

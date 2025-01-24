@@ -19,9 +19,9 @@ class MyAmadeusHotelSearchTool(AmadeusBaseTool):
 
     def _run(self, city_code: str, check_in_date: str, check_out_date: str, adults: int = 1, max_hotels: int = 2):
         # Usa il client Amadeus per cercare offerte di hotel
-        client = self.client  # Configurato automaticamente da AmadeusBaseTool
+        client = self.client  # Automatically configured by AmadeusBaseTool
         try:
-            # Chiamata all'endpoint hotel_offers_search
+            # Called to the endpoint hotel_offers_search
             ListHotel = client.reference_data.locations.hotels.by_city.get(
                 cityCode = city_code
             )
@@ -29,7 +29,7 @@ class MyAmadeusHotelSearchTool(AmadeusBaseTool):
             hotelID = ListHotel.data[0]
             hotel_ids = []
 
-            # Itera sugli hotel e aggiungi l'hotelId alla lista
+            #  Iterate on the hotels and add the hotelId to the list
             i = 0
             totHotel = len(ListHotel.data)
 
@@ -44,7 +44,7 @@ class MyAmadeusHotelSearchTool(AmadeusBaseTool):
             #         i+=1
 
             #     if i == 10:
-            #         break  # Assicurati che 'hotelId' sia il nome corretto dell'attributo
+            #         break  # Assure that 'hotelId' is the correct name of the attribute
             print(hotel_ids)
             print(f"Hotel0: {hotel_ids[0]}")
             response = client.shopping.hotel_offers_search.get(
@@ -63,7 +63,7 @@ class MyAmadeusHotelSearchTool(AmadeusBaseTool):
             print(f"Response Status: {response.status_code}")
             print(f"Response Data: {response.data}")
 
-            # Controlla se la risposta è corretta
+            # Check if the answer is correct
             if response.status_code != 200:
                 return {"error": f"API returned status code {response.status_code}"}
         
@@ -87,7 +87,7 @@ class MyAmadeusHotelSearchTool(AmadeusBaseTool):
             return results
 
         except Exception as e:
-            # Gestione degli errori
+            # Error Management
             
             return {"error": str(e)}
 

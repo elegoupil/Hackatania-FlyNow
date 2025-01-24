@@ -4,7 +4,7 @@ from TravelOrganizerLLM import askLLMPriority
 # Initialize the list of messages in the session, if not already present
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Hi! Where would you like to go?", "avatar": "✈️"}
+        {"role": "assistant", "content": "Hi! Where do you need to go on mission?", "avatar": "✈️"}
     ]
 
 # Display all stored messages
@@ -17,7 +17,7 @@ for message in st.session_state.messages:
         )
 
 # Handle user input
-if prompt := st.chat_input("e.g., Fastest flight from Rome to Copenhagen for tomorrow"):
+if prompt := st.chat_input("e.g., Fastest flight from Geneva to Valencia for tomorrow"):
     # Immediately add the user's message to the conversation
     st.session_state.messages.append({"role": "user", "content": prompt, "avatar": "👤"})
 
