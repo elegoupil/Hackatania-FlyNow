@@ -15,6 +15,21 @@ from datetime import date
 from MyAmadeusFlightSearchTool import MyAmadeusFlightSearchTool
 from MyAmadeusHotelSearch import MyAmadeusHotelSearchTool
 
+#openAI
+from langchain_openai import AzureChatOpenAI
+import os
+import openai
+import logging
+
+# Configure the logger
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+# Create a logger instance
+logger = logging.getLogger(__name__)
+
 # Loading the environment variables
 load_dotenv()
 
@@ -33,10 +48,29 @@ class State(TypedDict):
 
 graph_builder = StateGraph(State)
 
+#set env
+openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+openai_deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
+azure_openai_embedding_model  = os.getenv("AZURE_OPENAI_EMBEDDING_MODEL")
+
+
+# Set up Azure OpenAI using LangChain's AzureOpenAI class
+llm = AzureChatOpenAI(
+azure_endpoint=openai_endpoint,
+openai_api_version="2024-05-01-preview",
+azure_deployment=openai_deployment_name,
+openai_api_key=openai_api_key,
+openai_api_type="azure"
+)
+
+
 # Creating the LLM with tools
-llm = ChatOpenAI(model="gpt-4o-mini")
+#llm = ChatOpenAI(model="gpt-4o-mini")
+
 llm_with_tools = llm.bind_tools(tools)
 
+logger.info("Mo-Print Tools - 1")
 print(tools)
 
 def chatbot(state: State):
@@ -178,6 +212,7 @@ def askLLM(user_input):
 
         res = stream_graph_updates(fixInput)
     except Exception as e:
+        logger.info("Mo-Print Tools - 2")
         print(e)
         res = e
         # fallback if input() is not available
