@@ -39,7 +39,10 @@ class MyAmadeusFlightSearchTool(AmadeusBaseTool):
     def getClient():
         # Create the Amadeus client with your credentials
         amadeus_client = Client(
-            client_id="RwZPU0GAxibGNBzOONPR3bPWKsKwkv9s",
-            client_secret="exPdhoisqWETlHsU"
+            client_id="A9x36TeIi1CGyhyERHqoGLGTlr8aALhQ",
+            client_secret="VAjmUPrhhY1yFIln"
         )
         return amadeus_client
+  
+  
+  #exPdhoisqWE1925

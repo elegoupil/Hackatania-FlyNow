@@ -94,8 +94,12 @@ class MyAmadeusHotelSearchTool(AmadeusBaseTool):
     def _arun(self, *args, **kwargs):
         raise NotImplementedError("Async not supported yet.")
 
+
     @staticmethod
     def getClient():
+        # Loading the environment variables
+        load_dotenv()
+        
         # Configura il client Amadeus con le credenziali
         amadeus_client = Client(
             client_id="GPBeOGYq15rpYAKlJi8nG0e4DLUcvMrk",  # Sostituisci con il tuo client_id
